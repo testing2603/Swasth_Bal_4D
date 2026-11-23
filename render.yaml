@@ -1,0 +1,18 @@
+# Render.com blueprint: New + -> Blueprint -> pick this repo. Free plan.
+services:
+  - type: web
+    name: swasthbal4d-api
+    runtime: python
+    plan: free
+    region: singapore
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: SB4D_DEV_MODE        # demo data + OTP shown on screen
+        value: "true"
+      - key: SB4D_JWT_SECRET
+        generateValue: true

@@ -1,0 +1,4 @@
+-keepattributes *Annotation*, InnerClasses
+-keep,includedescriptorclasses class gov.up.swasthbal4d.**$$serializer { *; }
+-keepclassmembers class gov.up.swasthbal4d.** { *** Companion; }
+-keep class net.zetetic.database.** { *; }

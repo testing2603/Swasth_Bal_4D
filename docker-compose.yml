@@ -1,0 +1,20 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: sb4d
+      POSTGRES_PASSWORD: sb4d
+      POSTGRES_DB: swasthbal4d
+    volumes: [pgdata:/var/lib/postgresql/data]
+  api:
+    build: ./backend
+    environment:
+      SB4D_DATABASE_URL: postgresql+psycopg2://sb4d:sb4d@db:5432/swasthbal4d
+      SB4D_JWT_SECRET: change-me
+      SB4D_DEV_MODE: "true"   # set false in production (no OTP in responses, no seed data)
+    ports: ["8000:8000"]
+    volumes: [media:/data/media]
+    depends_on: [db]
+volumes:
+  pgdata: {}
+  media: {}

@@ -1,0 +1,130 @@
+{
+  "version": "2026.11-demo",
+  "note": "Thresholds marked basis=published follow WHO / RBSK job aids; basis=demo are placeholders that the clinical committee must approve before go-live.",
+  "danger_signs": [
+    {"id": "ds_drink", "text_hi": "क्या बच्चा कुछ भी पी / दूध नहीं पी पा रहा?", "text_en": "Unable to drink or breastfeed?"},
+    {"id": "ds_vomit", "text_hi": "क्या बच्चा सब कुछ उल्टी कर देता है?", "text_en": "Vomits everything?"},
+    {"id": "ds_fits", "text_hi": "क्या अभी या इस बीमारी में दौरे पड़े?", "text_en": "Convulsions now or during this illness?"},
+    {"id": "ds_lethargic", "text_hi": "क्या बच्चा बहुत सुस्त या बेहोश है?", "text_en": "Very lethargic or unconscious?"}
+  ],
+  "domains": {
+    "D1": {"name_hi": "जन्म दोष", "name_en": "Defects at birth", "default_refer": "DEIC"},
+    "D2": {"name_hi": "पोषण", "name_en": "Deficiencies", "default_refer": "PHC"},
+    "D3": {"name_hi": "बीमारियाँ", "name_en": "Diseases", "default_refer": "PHC"},
+    "D4": {"name_hi": "विकास", "name_en": "Developmental delays", "default_refer": "DEIC"}
+  },
+  "derived": {
+    "words_expected": [[0, 0], [12, 1], [18, 3], [24, 6], [36, 10], [48, 10]]
+  },
+  "captures": [
+    {"id": "face_front", "domain": "D1", "kind": "photo", "age_months": [0, 216], "text_hi": "बच्चे का चेहरा फ़्रेम में रखें, फ़ोन स्थिर रखें", "text_en": "Keep the face inside the frame - it captures automatically", "serves": ["D1", "D2", "D3"]},
+    {"id": "eyes_flash", "domain": "D1", "kind": "photo", "age_months": [0, 216], "text_hi": "दोनों आँखें - फ़्लैश के साथ", "text_en": "Both eyes with flash (red reflex)", "serves": ["D1", "D2", "D4"]},
+    {"id": "palate_flash", "domain": "D1", "kind": "photo", "age_months": [0, 72], "text_hi": "मुँह खुलवाकर तालू - फ़्लैश के साथ", "text_en": "Palate with flash", "serves": ["D1", "D2", "D3"]},
+    {"id": "back", "domain": "D1", "kind": "photo", "age_months": [0, 216], "text_hi": "पीठ की फ़ोटो", "text_en": "Back", "serves": ["D1", "D3"]},
+    {"id": "palms_nails", "domain": "D1", "kind": "photo", "age_months": [0, 216], "text_hi": "हथेलियाँ और नाखून", "text_en": "Palms and nails", "serves": ["D1", "D2", "D3"]},
+    {"id": "legs_feet", "domain": "D1", "kind": "photo", "age_months": [0, 216], "text_hi": "पैर और तलवे", "text_en": "Legs and feet", "serves": ["D1", "D2", "D3"]},
+    {"id": "walking_video", "domain": "D1", "kind": "video", "age_months": [12, 216], "text_hi": "बच्चे को चलते हुए 10 सेकंड रिकॉर्ड करें", "text_en": "Record the child walking for 10 s", "serves": ["D1", "D2", "D4"]},
+    {"id": "name_call", "domain": "D4", "kind": "video", "age_months": [6, 72], "text_hi": "पीछे से नाम पुकारें - देखें बच्चा मुड़ता है या नहीं", "text_en": "Call the name from behind - does the child turn?", "serves": ["D1", "D4"]},
+    {"id": "picture_naming", "domain": "D4", "kind": "audio", "age_months": [18, 72], "text_hi": "चित्र दिखाएँ - बच्चा नाम बोले", "text_en": "Show pictures - the child names them", "serves": ["D1", "D4"]}
+  ],
+  "devices": [
+    {"id": "muac_cm", "domain": "D2", "age_months": [6, 59], "unit": "cm", "name_hi": "MUAC टेप", "min": 6, "max": 30,
+     "steps_hi": ["बाएँ हाथ के ऊपरी हिस्से का बीच ढूँढें", "टेप लपेटें - न ज़्यादा कसा, न ढीला", "खिड़की में निशान पढ़ने लायक रखें"]},
+    {"id": "hb_gdl", "domain": "D2", "age_months": [6, 216], "unit": "g/dL", "name_hi": "Hb मीटर", "min": 2, "max": 20,
+     "steps_hi": ["उँगली साफ़ करें", "स्ट्रिप पर खून की बूँद लगाएँ", "स्क्रीन पर अंक आने तक रुकें"]},
+    {"id": "weight_kg", "domain": "D2", "age_months": [0, 216], "unit": "kg", "name_hi": "वज़न मशीन", "min": 0.5, "max": 120,
+     "steps_hi": ["मशीन शून्य पर करें", "बच्चे को बीच में रखें", "स्थिर अंक की फ़ोटो लें"]},
+    {"id": "spo2", "domain": "D3", "age_months": [0, 216], "unit": "%", "name_hi": "पल्स ऑक्सीमीटर", "min": 50, "max": 100,
+     "steps_hi": ["उँगली या पैर के अँगूठे पर लगाएँ", "10 सेकंड रुकें", "अंक की फ़ोटो लें"]},
+    {"id": "bp_systolic", "domain": "D3", "age_months": [120, 216], "unit": "mmHg", "name_hi": "BP मशीन", "min": 60, "max": 240,
+     "steps_hi": ["बच्चा 5 मिनट बैठा रहे", "कफ़ दाहिनी बाँह पर", "अंक की फ़ोटो लें"]}
+  ],
+  "required": [
+    {"domain": "D2", "age_months": [6, 59], "vars": ["readings.muac_cm"]},
+    {"domain": "D4", "age_months": [6, 72], "vars": ["tasks.name_call_trials"]}
+  ],
+  "questions": [
+    {"id": "q_d1_birth_cry", "domain": "D1", "age_months": [0, 2], "text_hi": "क्या जन्म के तुरंत बाद बच्चा रोया था?", "text_en": "Did the baby cry immediately after birth?", "risk_on": "no", "color": "YELLOW"},
+    {"id": "q_d1_feeding", "domain": "D1", "age_months": [0, 6], "text_hi": "क्या बच्चा ठीक से दूध पीता है?", "text_en": "Does the baby feed well?", "risk_on": "no", "color": "YELLOW"},
+    {"id": "q_d1_cleft", "domain": "D1", "age_months": [0, 216], "text_hi": "क्या होंठ या तालू में दरार दिखती है?", "text_en": "Visible cleft lip or palate?", "risk_on": "yes", "color": "RED", "refer": "DEIC"},
+    {"id": "q_d1_back_swelling", "domain": "D1", "age_months": [0, 216], "text_hi": "क्या पीठ पर कोई गाँठ या घाव है?", "text_en": "Swelling or lesion on the back?", "risk_on": "yes", "color": "RED", "refer": "DEIC"},
+    {"id": "q_d1_clubfoot", "domain": "D1", "age_months": [0, 216], "text_hi": "क्या पैर अंदर की ओर मुड़े हुए हैं?", "text_en": "Feet turned inwards (club foot)?", "risk_on": "yes", "color": "RED", "refer": "DEIC"},
+    {"id": "q_d1_white_pupil", "domain": "D1", "age_months": [0, 216], "text_hi": "क्या आँख की पुतली सफ़ेद दिखती है?", "text_en": "White pupil?", "risk_on": "yes", "color": "RED", "refer": "DEIC"},
+    {"id": "q_d1_family", "domain": "D1", "age_months": [0, 216], "text_hi": "क्या परिवार में किसी को जन्म से कोई दोष है?", "text_en": "Family history of birth defects?", "risk_on": "yes", "color": "YELLOW"},
+
+    {"id": "q_d2_tired", "domain": "D2", "age_months": [6, 216], "text_hi": "क्या बच्चा जल्दी थक जाता है?", "text_en": "Gets tired easily?", "risk_on": "yes", "color": "YELLOW"},
+    {"id": "q_d2_meals", "domain": "D2", "age_months": [6, 216], "text_hi": "क्या बच्चा दिन में 3 बार खाना खाता है?", "text_en": "Eats 3 meals a day?", "risk_on": "no", "color": "YELLOW"},
+    {"id": "q_d2_ifa", "domain": "D2", "age_months": [6, 216], "text_hi": "क्या पिछले महीने आयरन सिरप / गोली मिली?", "text_en": "Received IFA last month?", "risk_on": "no", "color": "YELLOW"},
+    {"id": "q_d2_deworm", "domain": "D2", "age_months": [12, 216], "text_hi": "क्या पिछले 6 महीने में पेट के कीड़े की दवा दी?", "text_en": "Dewormed in the last 6 months?", "risk_on": "no", "color": "YELLOW"},
+    {"id": "q_d2_swelling", "domain": "D2", "age_months": [6, 59], "text_hi": "क्या दोनों पैरों में सूजन है?", "text_en": "Swelling of both feet?", "risk_on": "yes", "color": "RED", "refer": "NRC"},
+
+    {"id": "q_d3_cough", "domain": "D3", "age_months": [0, 216], "text_hi": "क्या 2 हफ़्ते से ज़्यादा खाँसी है?", "text_en": "Cough for more than 2 weeks?", "risk_on": "yes", "color": "RED", "refer": "PHC"},
+    {"id": "q_d3_ear", "domain": "D3", "age_months": [0, 216], "text_hi": "क्या कान से पानी / मवाद आता है?", "text_en": "Ear discharge?", "risk_on": "yes", "color": "YELLOW"},
+    {"id": "q_d3_tooth", "domain": "D3", "age_months": [12, 216], "text_hi": "क्या दाँत में दर्द या कीड़ा है?", "text_en": "Tooth pain or caries?", "risk_on": "yes", "color": "YELLOW"},
+    {"id": "q_d3_fits", "domain": "D3", "age_months": [0, 216], "text_hi": "क्या कभी दौरे पड़े हैं?", "text_en": "History of fits?", "risk_on": "yes", "color": "RED", "refer": "DEIC"},
+    {"id": "q_d3_itch", "domain": "D3", "age_months": [0, 216], "text_hi": "क्या रात में खुजली होती है?", "text_en": "Itching at night?", "risk_on": "yes", "color": "YELLOW"},
+    {"id": "q_d3_numb_patch", "domain": "D3", "age_months": [24, 216], "text_hi": "क्या त्वचा पर कोई सुन्न दाग है?", "text_en": "Numb skin patch?", "risk_on": "yes", "color": "RED", "refer": "PHC"},
+
+    {"id": "q_d4_smile", "domain": "D4", "age_months": [2, 6], "text_hi": "क्या बच्चा आपको देखकर मुस्कुराता है?", "text_en": "Smiles back at you?", "risk_on": "no", "color": "YELLOW"},
+    {"id": "q_d4_sit", "domain": "D4", "age_months": [9, 72], "text_hi": "क्या बच्चा बिना सहारे बैठ जाता है?", "text_en": "Sits without support?", "risk_on": "no", "color": "RED"},
+    {"id": "q_d4_walk", "domain": "D4", "age_months": [18, 72], "text_hi": "क्या बच्चा अपने आप चलता है?", "text_en": "Walks alone?", "risk_on": "no", "color": "RED"},
+    {"id": "q_d4_eye_contact", "domain": "D4", "age_months": [6, 72], "text_hi": "क्या बच्चा आँख मिलाकर देखता है?", "text_en": "Makes eye contact?", "risk_on": "no", "color": "YELLOW", "flag_unsure": true},
+    {"id": "q_d4_point", "domain": "D4", "age_months": [15, 72], "text_hi": "क्या बच्चा उँगली से चीज़ें दिखाता है?", "text_en": "Points to show things?", "risk_on": "no", "color": "YELLOW", "flag_unsure": true},
+    {"id": "q_d4_school", "domain": "D4", "age_months": [72, 216], "text_hi": "क्या पढ़ाई में बच्चा बहुत पीछे है?", "text_en": "Far behind in school?", "risk_on": "yes", "color": "YELLOW"}
+  ],
+  "rules": [
+    {"id": "R-D1-010", "domain": "D1", "age_months": [0, 1], "when": {"var": "readings.birth_weight_kg", "op": "<", "value": 1.8}, "color": "RED", "refer": "DH", "basis": "published", "locked": true, "text_hi": "जन्म का वज़न बहुत कम", "text_en": "Very low birth weight"},
+    {"id": "R-D1-011", "domain": "D1", "age_months": [0, 1], "when": {"var": "readings.birth_weight_kg", "op": "<", "value": 2.5}, "color": "YELLOW", "basis": "published", "text_hi": "जन्म का वज़न कम", "text_en": "Low birth weight"},
+
+    {"id": "R-D2-001", "domain": "D2", "age_months": [6, 59], "when": {"var": "readings.muac_cm", "op": "<", "value": 11.5}, "color": "RED", "refer": "NRC", "focus": "sam", "basis": "published", "locked": true, "text_hi": "गंभीर कुपोषण (MUAC लाल)", "text_en": "Severe acute malnutrition (MUAC < 11.5 cm)"},
+    {"id": "R-D2-002", "domain": "D2", "age_months": [6, 59], "when": {"var": "readings.muac_cm", "op": "<", "value": 12.5}, "color": "YELLOW", "focus": "mam", "basis": "published", "locked": true, "text_hi": "कुपोषण का ख़तरा (MUAC पीला)", "text_en": "Moderate acute malnutrition (MUAC 11.5-12.4 cm)"},
+    {"id": "R-D2-010", "domain": "D2", "age_months": [6, 59], "when": {"var": "readings.hb_gdl", "op": "<", "value": 7}, "color": "RED", "refer": "DH", "focus": "anaemia", "basis": "published", "locked": true, "text_hi": "गंभीर खून की कमी", "text_en": "Severe anaemia (Hb < 7 g/dL)"},
+    {"id": "R-D2-011", "domain": "D2", "age_months": [6, 59], "when": {"var": "readings.hb_gdl", "op": "<", "value": 11}, "color": "YELLOW", "focus": "anaemia", "basis": "published", "locked": true, "text_hi": "खून की कमी", "text_en": "Anaemia (Hb < 11 g/dL)"},
+    {"id": "R-D2-012", "domain": "D2", "age_months": [60, 143], "when": {"var": "readings.hb_gdl", "op": "<", "value": 8}, "color": "RED", "refer": "DH", "focus": "anaemia", "basis": "published", "locked": true, "text_hi": "गंभीर खून की कमी", "text_en": "Severe anaemia (Hb < 8 g/dL)"},
+    {"id": "R-D2-013", "domain": "D2", "age_months": [60, 143], "when": {"var": "readings.hb_gdl", "op": "<", "value": 11.5}, "color": "YELLOW", "focus": "anaemia", "basis": "published", "locked": true, "text_hi": "खून की कमी", "text_en": "Anaemia (Hb < 11.5 g/dL)"},
+    {"id": "R-D2-014", "domain": "D2", "age_months": [144, 216], "when": {"var": "readings.hb_gdl", "op": "<", "value": 8}, "color": "RED", "refer": "DH", "focus": "anaemia", "basis": "published", "locked": true, "text_hi": "गंभीर खून की कमी", "text_en": "Severe anaemia (Hb < 8 g/dL)"},
+    {"id": "R-D2-015", "domain": "D2", "age_months": [144, 216], "when": {"var": "readings.hb_gdl", "op": "<", "value": 12}, "color": "YELLOW", "focus": "anaemia", "basis": "published", "locked": true, "text_hi": "खून की कमी", "text_en": "Anaemia (Hb < 12 g/dL)"},
+
+    {"id": "R-D3-001", "domain": "D3", "age_months": [0, 216], "when": {"var": "readings.spo2", "op": "<", "value": 90}, "color": "RED", "refer": "DH", "urgency": "emergency", "basis": "published", "locked": true, "text_hi": "ऑक्सीजन बहुत कम - तुरंत अस्पताल", "text_en": "SpO2 < 90 % - emergency"},
+    {"id": "R-D3-002", "domain": "D3", "age_months": [0, 216], "when": {"var": "readings.spo2", "op": "<", "value": 95}, "color": "YELLOW", "basis": "published", "locked": true, "text_hi": "ऑक्सीजन थोड़ी कम", "text_en": "SpO2 90-94 %"},
+    {"id": "R-D3-010", "domain": "D3", "age_months": [120, 216], "when": {"var": "readings.bp_systolic", "op": ">=", "value": 140}, "color": "RED", "refer": "NCD", "basis": "demo", "locked": true, "text_hi": "BP बहुत ज़्यादा", "text_en": "Systolic BP >= 140"},
+    {"id": "R-D3-011", "domain": "D3", "age_months": [120, 216], "when": {"var": "readings.bp_systolic", "op": ">=", "value": 120}, "color": "YELLOW", "basis": "demo", "text_hi": "BP थोड़ा ज़्यादा", "text_en": "Systolic BP 120-139"},
+
+    {"id": "R-D4-001", "domain": "D4", "age_months": [6, 72], "when": {"all": [{"var": "tasks.name_call_trials", "op": ">=", "value": 2}, {"var": "tasks.name_call_turns", "op": "==", "value": 0}]}, "color": "RED", "refer": "DEIC", "focus": "hearing", "basis": "demo", "text_hi": "नाम पुकारने पर नहीं मुड़ा - सुनने की जाँच", "text_en": "No head-turn to name call"},
+    {"id": "R-D4-002", "domain": "D4", "age_months": [18, 72], "when": {"var": "tasks.words_named", "op": "<", "value_var": "derived.words_expected", "factor": 0.5}, "color": "RED", "refer": "DEIC", "focus": "speech", "basis": "demo", "text_hi": "बोलना उम्र से कम", "text_en": "Speech below age (fewer than half the expected words)"},
+    {"id": "R-D4-003", "domain": "D4", "age_months": [18, 72], "when": {"var": "tasks.words_named", "op": "<", "value_var": "derived.words_expected"}, "color": "YELLOW", "focus": "speech", "basis": "demo", "text_hi": "बोलना थोड़ा कम", "text_en": "Speech slightly below age"},
+    {"id": "R-D4-010", "domain": "D4", "age_months": [0, 216], "when": {"var": "tasks.star_follow_ok", "op": "==", "value": false}, "color": "YELLOW", "focus": "vision", "basis": "demo", "text_hi": "आँखों से चीज़ का पीछा नहीं किया", "text_en": "Did not follow the moving target"},
+    {"id": "R-D4-020", "domain": "D4", "age_months": [72, 216], "when": {"var": "tasks.vision_rows", "op": "<", "value": 4}, "color": "YELLOW", "refer": "DH", "focus": "vision", "basis": "demo", "text_hi": "नज़र कमज़ोर हो सकती है", "text_en": "Eye-chart: fewer than 4 rows read"},
+    {"id": "R-D4-021", "domain": "D4", "age_months": [48, 216], "when": {"var": "tasks.tone_fail_ears", "op": ">=", "value": 1}, "color": "RED", "refer": "DEIC", "focus": "hearing", "basis": "demo", "text_hi": "सुनने की जाँच में कमी", "text_en": "Failed tone test"}
+  ],
+  "routing": {
+    "emergency": "DH",
+    "order": ["DH", "NRC", "DEIC", "PHC", "CHC", "NCD", "AFHC", "DMHP"]
+  },
+  "cross_domain": [
+    {"id": "X-001", "if_rules": ["R-D4-001", "R-D4-002"], "note_hi": "पहले सुनने की जाँच, फिर बोलने की", "note_en": "Check hearing first, then speech"}
+  ],
+  "activities": {
+    "anaemia": [
+      {"id": "A-AN-1", "text_hi": "आज हरी पत्तेदार सब्ज़ी, गुड़-चना और दाल खिलाएँ - खून बढ़ाने के लिए।", "ask_upload": false}
+    ],
+    "speech": [
+      {"id": "A-SP-1", "text_hi": "गेंद और मछली की तस्वीर दिखाकर नाम बुलवाएँ, 3 बार। बच्चे की आवाज़ रिकॉर्ड करके भेजें।", "ask_upload": true},
+      {"id": "A-SP-2", "text_hi": "खाना खिलाते समय हर चीज़ का नाम बोलें और बच्चे से दोहरवाएँ।", "ask_upload": true}
+    ],
+    "hearing": [
+      {"id": "A-HE-1", "text_hi": "बच्चे के पीछे से धीरे से थाली बजाएँ - देखें मुड़ता है या नहीं। वीडियो भेजें।", "ask_upload": true}
+    ],
+    "mam": [
+      {"id": "A-MA-1", "text_hi": "दिन में 5 बार थोड़ा-थोड़ा खाना, खाने में एक चम्मच घी / तेल मिलाएँ।", "ask_upload": false}
+    ],
+    "default": [
+      {"id": "A-GEN-1", "text_hi": "बच्चे के साथ 10 मिनट खेलें और बातें करें।", "ask_upload": false}
+    ]
+  },
+  "approved_content": [
+    {"id": "C-IFA-1", "keywords": ["आयरन", "iron", "सिरप"], "text_hi": "आयरन सिरप खाने के बाद दें। उल्टी या पेट दर्द हो तो आशा दीदी को बताएँ।", "source": "NHM UP - Anaemia Mukt Bharat leaflet"},
+    {"id": "C-DIET-1", "keywords": ["खाना", "आहार", "diet", "food"], "text_hi": "हरी सब्ज़ी, दाल, गुड़-चना, मौसमी फल रोज़ दें।", "source": "Poshan Abhiyan diet card"},
+    {"id": "C-REF-1", "keywords": ["अस्पताल", "रेफ़रल", "कहाँ", "hospital"], "text_hi": "रेफ़रल कार्ड पर अस्पताल का नाम और समय लिखा है। इलाज मुफ़्त है। 108 / 102 पर एम्बुलेंस बुला सकते हैं।", "source": "RBSK referral card"}
+  ]
+}
