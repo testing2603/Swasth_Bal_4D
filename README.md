@@ -31,7 +31,7 @@ In dev mode the server loads **synthetic** demo data that matches the screens in
 ## Run the Android app
 
 1. Open the `android/` folder in Android Studio (Ladybug or newer). Let it sync Gradle. If Studio asks for a Gradle wrapper, accept it (wrapper version 8.11.1).
-2. Start the backend on your laptop. The emulator reaches it at `http://10.0.2.2:8000`. For a real phone on the same Wi-Fi, change `API_BASE_URL` in `app/build.gradle.kts` to your laptop's IP. Then add that IP to `res/xml/network_security_config.xml`.
+2. The app talks to the online backend at `https://swasthbal4d-api.onrender.com` by default. To use a backend on your laptop instead, build with `-PapiBaseUrl=http://10.0.2.2:8000/api/v1/` (emulator).
 3. Run it on Android 10+. Log in with one of the numbers above, enter the OTP shown on screen, and set a 4-digit PIN.
 
 ## What maps to which screen in the design

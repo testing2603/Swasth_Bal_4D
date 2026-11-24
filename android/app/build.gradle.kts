@@ -16,9 +16,9 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "0.1.0"
-        // Backend URL. Default 10.0.2.2 = your laptop seen from the emulator.
-        // Online: build with -PapiBaseUrl=https://<your-app>.onrender.com/api/v1/ (the GitHub workflow does this)
-        val apiBaseUrl = (project.findProperty("apiBaseUrl") as String?) ?: "http://10.0.2.2:8000/api/v1/"
+        // Backend URL: the Render deployment by default.
+        // Local laptop backend from the emulator: build with -PapiBaseUrl=http://10.0.2.2:8000/api/v1/
+        val apiBaseUrl = (project.findProperty("apiBaseUrl") as String?) ?: "https://swasthbal4d-api.onrender.com/api/v1/"
         buildConfigField("String", "API_BASE_URL", "\"$apiBaseUrl\"")
     }
 
