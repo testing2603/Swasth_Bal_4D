@@ -1,0 +1,24 @@
+name: Backend smoke test
+on:
+  push:
+    paths: [".github/workflows/smoke.yml", "backend/**"]
+  workflow_dispatch:
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login flow against Render
+        env:
+          API: https://swasthbal4d-api.onrender.com/api/v1
+        run: |
+          set -x
+          curl -s -m 90 https://swasthbal4d-api.onrender.com/health; echo
+          R=$(curl -s -m 60 -X POST $API/auth/otp/request -H 'content-type: application/json' -d '{"mobile":"9000000001"}' -w ' HTTP%{http_code} %{time_total}s')
+          echo "$R"
+          OTP=$(echo "$R" | sed -n 's/.*"dev_otp":"\([0-9]*\)".*/\1/p')
+          V=$(curl -s -m 60 -X POST $API/auth/otp/verify -H 'content-type: application/json' -d "{\"mobile\":\"9000000001\",\"otp\":\"$OTP\"}")
+          echo "$V" | head -c 600; echo
+          TOKEN=$(echo "$V" | sed -n 's/.*"token":"\([^"]*\)".*/\1/p')
+          curl -s -m 60 -X POST $API/auth/pin/set -H "Authorization: Bearer $TOKEN" -H 'content-type: application/json' -d '{"pin":"1234"}' -w ' HTTP%{http_code}'; echo
+          curl -s -m 60 $API/worker/home -H "Authorization: Bearer $TOKEN" -w ' HTTP%{http_code}' | tail -c 400; echo
+          curl -s -m 60 $API/offline-pack -H "Authorization: Bearer $TOKEN" -o /dev/null -w 'offline-pack HTTP%{http_code} %{size_download} bytes'; echo
