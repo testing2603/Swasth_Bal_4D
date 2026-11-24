@@ -83,7 +83,8 @@ abstract class LocalDb : RoomDatabase() {
     companion object {
         fun create(context: Context): LocalDb {
             System.loadLibrary("sqlcipher")
-            val factory = SupportOpenHelperFactory(passphrase(context))
+            // clearPassphrase = false: Room may reopen the database, and a wiped key would make that fail
+            val factory = SupportOpenHelperFactory(passphrase(context), null, false)
             return Room.databaseBuilder(context, LocalDb::class.java, "swasthbal4d.db")
                 .openHelperFactory(factory)
                 .fallbackToDestructiveMigration()

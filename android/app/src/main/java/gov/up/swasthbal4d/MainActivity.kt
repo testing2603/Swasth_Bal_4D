@@ -9,6 +9,18 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.selection.SelectionContainer
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -56,8 +68,36 @@ class MainActivity : ComponentActivity() {
         }
         val repo = (application as SwasthBalApp).repo
         val start = if (repo.session.token != null && runBlocking { repo.session.hasPin() }) "pin" else "login"
-        setContent { SwasthBalTheme { AppNav(repo, start) } }
+        val crashFile = java.io.File(filesDir, "last_crash.txt")
+        val lastCrash = crashFile.takeIf { it.exists() }?.readText()?.also { crashFile.delete() }
+        setContent {
+            SwasthBalTheme {
+                AppNav(repo, start)
+                if (lastCrash != null) CrashDialog(lastCrash)
+            }
+        }
     }
+}
+
+/** Shows the previous crash once, with a copy button, so it can be sent to the developer. */
+@Composable
+private fun CrashDialog(text: String) {
+    var open by remember { mutableStateOf(true) }
+    val clipboard = LocalClipboardManager.current
+    if (!open) return
+    AlertDialog(
+        onDismissRequest = { open = false },
+        title = { Text("पिछली बार ऐप बंद हो गया था") },
+        text = {
+            SelectionContainer {
+                Text(text, fontSize = 11.sp, modifier = Modifier.heightIn(max = 360.dp).verticalScroll(rememberScrollState()))
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = { clipboard.setText(AnnotatedString(text)); open = false }) { Text("कॉपी करें") }
+        },
+        dismissButton = { TextButton(onClick = { open = false }) { Text("बंद") } },
+    )
 }
 
 private fun homeFor(role: String) = when (role) {

@@ -44,8 +44,8 @@ class ApiClient(private val tokenProvider: () -> String?) {
         .build()
         .create(ApiService::class.java)
 
-    /** Normal calls. */
-    val api: ApiService = retrofit(15)
+    /** Normal calls. Generous: a sleeping free server can take ~60 s to wake up. */
+    val api: ApiService = retrofit(30)
 
     /** Short-timeout calls used during a visit: if the network is slow we fall back to a
      *  PROVISIONAL result instead of making the worker wait (design 7.2). */
